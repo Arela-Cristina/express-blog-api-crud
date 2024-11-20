@@ -2,6 +2,7 @@ console.log("Hello");
 //STEP 1
 const express = require("express"); //import
 const { posts } = require("./data_base.js"); //import from ...
+const postsRouter = require("./routers/router.js");
 const app = express(); // istanza = app
 const port = 1311; // #porta
 
