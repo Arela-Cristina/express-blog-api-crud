@@ -50,9 +50,25 @@ function patch(req, res) {
 
 //deleted
 function destroy(req, res) {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   console.log(`Eliminazione pasticino ${id}`);
-  res.send(`Eliminazione  pasticino ${id}`);
+
+  const postIndex = posts.findIndex((el) => el.id === id); //trova il oggetto con id ...
+  console.log(`Detagli del post ${id}`);
+
+  if (postIndex === -1) {
+    res.status(404);
+
+    return res.json({
+      error: "Post not found",
+      message: "Il Post non e stato trovato",
+    });
+  }
+
+  posts.splice(postIndex, 1);
+  res.sendStatus(204);
+
+//   res.send([postIndex]); // ... e ritorna il oggetto completo
 }
 
 module.exports = { index, show, store, update, patch, destroy }; // export functions
