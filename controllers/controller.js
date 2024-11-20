@@ -12,6 +12,19 @@ function show(req, res) {
   const id = parseInt(req.params.id);
   const post = posts.find((el) => el.id === id); //trova il oggetto con id ...
   console.log(`Detagli del pasticino ${id}`);
+
+  let result = post;
+  if (!post) {
+    res.status(404);
+
+    res.json({
+      error: "Post not found",
+      message: "Il Post non e stato trovato",
+    });
+
+    return;
+  }
+
   res.json(post); // ... e ritorna il oggetto completo
 }
 
