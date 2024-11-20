@@ -4,7 +4,20 @@ const { posts } = require("../data/data_base.js"); //import data_base, cioe arra
 function index(req, res) {
   console.log("Index pasticini");
   //   res.send("Index pasticini");
-  res.json(posts); //return post in JSON
+  console.log("hola", req.query); // req.query: oggetto dove ci sono le prop del mio array
+
+  let postsFilter = posts;
+
+  if (req.query.tipo) {
+    console.log(`elemento que posiede ${req.query.tipo}`);
+
+    //filter
+    postsFilter = posts.filter((post) => {
+      return post.tipos.some(item => item.toLowerCase() == req.query.tipo.toLowerCase());
+    });
+    console.log(postsFilter);
+  }
+  res.json(postsFilter); //return post in JSON
 }
 
 //show
@@ -68,7 +81,7 @@ function destroy(req, res) {
   posts.splice(postIndex, 1);
   res.sendStatus(204);
 
-//   res.send([postIndex]); // ... e ritorna il oggetto completo
+  //   res.send([postIndex]); // ... e ritorna il oggetto completo
 }
 
 module.exports = { index, show, store, update, patch, destroy }; // export functions
