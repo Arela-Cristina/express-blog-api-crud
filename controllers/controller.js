@@ -8,16 +8,25 @@ function index(req, res) {
 
   let postsFilter = posts;
 
+  //filtro per tipo
   if (req.query.tipo) {
     console.log(`elemento que posiede ${req.query.tipo}`);
 
-    //filter
     postsFilter = posts.filter((post) => {
-      return post.tipos.some(item => item.toLowerCase() == req.query.tipo.toLowerCase());
+      return post.tipos.some(
+        (item) => item.toLowerCase() == req.query.tipo.toLowerCase()
+      );
     });
     console.log(postsFilter);
   }
-  res.json(postsFilter); //return post in JSON
+
+  //filtro per limite
+  const limit = parseInt(req.query.limit);
+  if (limit && !isNaN(limit) && limit >= 0) {
+    postsFilter = postsFilter.slice(0, limit);
+  }
+
+  res.json(postsFilter); //return post in JSON in base alla condizione
 }
 
 //show
