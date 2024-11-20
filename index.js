@@ -2,7 +2,7 @@ console.log("Hello");
 //STEP 1
 const express = require("express"); //import
 const { posts } = require("./data_base.js"); //import from ...
-const postsRouter = require("./routers/router.js");
+const postsRouter = require("./routers/router.js"); //import from 
 const app = express(); // istanza = app
 const port = 1311; // #porta
 
@@ -13,6 +13,9 @@ app.get("/", (req, res) => {
   console.log("Server del mio nuovo blog");
   res.send("Benvenuto al server del mio nuovo blog");
 });
+
+//STEP 5
+app.use("/posts", postsRouter); //collegamento router
 
 //STEP 2
 app.listen(port, () => {
