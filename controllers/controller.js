@@ -1,4 +1,4 @@
-const { posts } = require("../data_base.js"); //import data_base, cioe array di pasticini
+const { posts } = require("../data/data_base.js"); //import data_base, cioe array di pasticini
 
 //index
 function index(req, res) {

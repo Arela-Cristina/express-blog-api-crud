@@ -1,6 +1,6 @@
 const express = require("express"); //import
 const router = express.Router(); //funzione Router () pressa da express
-const { posts } = require("../data_base.js"); //import posts from data_base.js
+const { posts } = require("../data/data_base.js"); //import posts from data_base.js
 const routerController = require("../controllers/controller.js"); //import  from controller.js
 console.log(routerController);
 //CRUDE
