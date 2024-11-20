@@ -1,10 +1,11 @@
 console.log("Hello");
 //STEP 1
 const express = require("express"); //import
-
-const { posts } = require("./data_base.js"); //import from ... 
+const { posts } = require("./data_base.js"); //import from ...
 const app = express(); // istanza = app
 const port = 1311; // #porta
+
+app.use(express.static("public_assets")); //set middleware using ".use" prop
 
 //STEP 3
 app.get("/", (req, res) => {
