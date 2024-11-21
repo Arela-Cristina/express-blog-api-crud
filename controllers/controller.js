@@ -54,9 +54,19 @@ function store(req, res) {
 
   const lastIndex = posts.at(-1);
   const newId = lastIndex.id + 1;
+
   //creiamo la struttura del oggetto
   const { title, tipos, img } = req.body;
 
+  //control !undefined
+  if (!title || !tipos || !img) {
+    return res.status(400).json({
+      error: "Faltan campos requeridos",
+      message: "Los campos 'title', 'tipos' e 'img' son obligatorios.",
+    });
+  }
+
+  //new object
   const newPost = {
     title: title,
     tipos: tipos,
