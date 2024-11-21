@@ -44,7 +44,7 @@ function show(req, res) {
     });
   }
 
-  res.json(post) // ... e ritorna il oggetto completo
+  res.json(post); // ... e ritorna il oggetto completo
 }
 
 //store
@@ -96,9 +96,27 @@ function update(req, res) {
 
 //modify
 function patch(req, res) {
-  const id = req.params.id;
-  console.log(`Aggiornamento parziale pasticino ${id}`);
-  res.send(`Aggiornamento parziale pasticino ${id}`);
+  const id = parseInt(req.params.id);
+  console.log(`Aggiornamento parziale ${id}`);
+
+  const post = posts.find((el) => el.id === id); //recuperiamo il post
+  console.log(`Detagli del pasticino ${id}`);
+
+  if (!post) {
+    res.status(404);
+    return res.json({
+      error: "Post not found",
+      message: "Il Post non e stato trovato",
+    });
+  }
+
+  const { title, tipos, img } = req.body;
+
+  if (title) post.title = title;
+  if (tipos) post.tipos = tipos;
+  if (img) post.img = img;
+
+  res.json(post); // ... e ritorna il oggetto completo
 }
 
 //deleted
