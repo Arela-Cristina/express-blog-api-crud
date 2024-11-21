@@ -55,16 +55,10 @@ function store(req, res) {
   const lastIndex = posts.at(-1);
   const newId = lastIndex.id + 1;
 
-  //creiamo la struttura del oggetto
-  const { title, tipos, img } = req.body;
+  const validation = validatePostFields(req, res);
+  if (validation) return; // ritorna errori se ci sono
 
-  //control !undefined
-  if (!title || !tipos || !img) {
-    return res.status(400).json({
-      error: "Compilare i campi mancanti",
-      message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
-    });
-  }
+  const { title, tipos, img } = req.body;
 
   //new object
   const newPost = {
@@ -95,15 +89,10 @@ function update(req, res) {
     });
   }
 
-  const { title, tipos, img } = req.body;
+  const validation = validatePostFields(req, res);
+  if (validation) return; // ritorna errori se ci sono
 
-  //control !undefined
-  if (!title || !tipos || !img) {
-    return res.status(400).json({
-      error: "Compilare i campi mancanti",
-      message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
-    });
-  }
+  const { title, tipos, img } = req.body;
 
   post.title = title;
   post.tipos = tipos;
@@ -129,14 +118,6 @@ function patch(req, res) {
   }
 
   const { title, tipos, img } = req.body;
-
-  //control !undefined
-  if (!title || !tipos || !img) {
-    return res.status(400).json({
-      error: "Compilare i campi mancanti",
-      message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
-    });
-  }
 
   if (title) post.title = title;
   if (tipos) post.tipos = tipos;
@@ -170,9 +151,22 @@ function destroy(req, res) {
 
 module.exports = { index, show, store, update, patch, destroy }; // export functions
 
-
-
 //function  2
 const findPostById = (id) => {
   return posts.find((el) => el.id === id);
+};
+
+//function 1
+const validatePostFields = (req, res) => {
+  const { title, tipos, img } = req.body;
+
+  if (!title || !tipos || !img) {
+    res.status(400).json({
+      error: "Compilare i campi mancanti",
+      message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
+    });
+    return true; // Ritorna `true` se ci sono errori
+  }
+
+  return false; // Ritorna `false` se non ci sono errori
 };
