@@ -35,19 +35,16 @@ function show(req, res) {
   const post = posts.find((el) => el.id === id); //trova il oggetto con id ...
   console.log(`Detagli del pasticino ${id}`);
 
-  let result = post;
   if (!post) {
     res.status(404);
 
-    res.json({
+    return res.json({
       error: "Post not found",
       message: "Il Post non e stato trovato",
     });
-
-    return;
   }
 
-  res.json(post); // ... e ritorna il oggetto completo
+  res.json(post) // ... e ritorna il oggetto completo
 }
 
 //store
@@ -73,9 +70,28 @@ function store(req, res) {
 
 //update
 function update(req, res) {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
   console.log(`Aggiornamento pasticino ${id}`);
-  res.send(`Aggiornamento pasticino ${id}`);
+  // res.send(`Aggiornamento pasticino ${id}`);
+
+  const post = posts.find((el) => el.id === id); //recuperiamo il post
+  console.log(`Detagli del pasticino ${id}`);
+
+  if (!post) {
+    res.status(404);
+    return res.json({
+      error: "Post not found",
+      message: "Il Post non e stato trovato",
+    });
+  }
+
+  const { title, tipos, img } = req.body;
+
+  post.title = title;
+  post.tipos = tipos;
+  post.img = img;
+
+  res.json(post); // ... e ritorna il oggetto completo
 }
 
 //modify
