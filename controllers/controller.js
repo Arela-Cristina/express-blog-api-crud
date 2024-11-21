@@ -32,7 +32,7 @@ function index(req, res) {
 //show
 function show(req, res) {
   const id = parseInt(req.params.id);
-  const post = posts.find((el) => el.id === id); //trova il oggetto con id ...
+  const post = findPostById(id); //trova il oggetto con id ...
   console.log(`Detagli del pasticino ${id}`);
 
   if (!post) {
@@ -84,7 +84,7 @@ function update(req, res) {
   console.log(`Aggiornamento pasticino ${id}`);
   // res.send(`Aggiornamento pasticino ${id}`);
 
-  const post = posts.find((el) => el.id === id); //recuperiamo il post
+  const post = findPostById(id); //recuperiamo il post
   console.log(`Detagli del pasticino ${id}`);
 
   if (!post) {
@@ -117,7 +117,7 @@ function patch(req, res) {
   const id = parseInt(req.params.id);
   console.log(`Aggiornamento parziale ${id}`);
 
-  const post = posts.find((el) => el.id === id); //recuperiamo il post
+  const post = findPostById(id); //recuperiamo il post
   console.log(`Detagli del pasticino ${id}`);
 
   if (!post) {
@@ -150,7 +150,7 @@ function destroy(req, res) {
   const id = parseInt(req.params.id);
   console.log(`Eliminazione pasticino ${id}`);
 
-  const postIndex = posts.findIndex((el) => el.id === id); //trova il oggetto con id ...
+  const postIndex = findPostById(id); //trova il oggetto con id ...
   console.log(`Detagli del post ${id}`);
 
   if (postIndex === -1) {
@@ -169,3 +169,10 @@ function destroy(req, res) {
 }
 
 module.exports = { index, show, store, update, patch, destroy }; // export functions
+
+
+
+//function  2
+const findPostById = (id) => {
+  return posts.find((el) => el.id === id);
+};
