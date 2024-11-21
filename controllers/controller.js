@@ -53,7 +53,22 @@ function show(req, res) {
 //store
 function store(req, res) {
   console.log("Creiamo un nuovo pasticino");
-  res.send("Creiamo un nuovo pasticino");
+  console.log("req body", req.body);
+
+  const lastIndex = posts.at(-1);
+  const newId = lastIndex.id + 1;
+  //creiamo la struttura del oggetto
+  const { title, tipos, img } = req.body;
+
+  const newPost = {
+    title: title,
+    tipos: tipos,
+    img: img,
+    id: newId,
+  };
+
+  posts.push(newPost);
+  res.json(newPost);
 }
 
 //update
