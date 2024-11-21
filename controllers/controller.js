@@ -61,8 +61,8 @@ function store(req, res) {
   //control !undefined
   if (!title || !tipos || !img) {
     return res.status(400).json({
-      error: "Faltan campos requeridos",
-      message: "Los campos 'title', 'tipos' e 'img' son obligatorios.",
+      error: "Compilare i campi mancanti",
+      message: "I campi 'title', 'tipos' e 'img' sono.",
     });
   }
 
@@ -96,6 +96,14 @@ function update(req, res) {
   }
 
   const { title, tipos, img } = req.body;
+
+  //control !undefined
+  if (!title || !tipos || !img) {
+    return res.status(400).json({
+      error: "Compilare i campi mancanti",
+      message: "I campi 'title', 'tipos' e 'img' sono.",
+    });
+  }
 
   post.title = title;
   post.tipos = tipos;
