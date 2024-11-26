@@ -52,11 +52,11 @@ function store(req, res) {
   console.log("Creiamo un nuovo pasticino");
   console.log("req body", req.body);
 
-  const lastIndex = posts.at(-1);
-  const newId = lastIndex.id + 1;
+  const lastElement = posts.at(-1);
+  const newId = lastElement.id + 1;
 
-  const validation = validatePostFields(req, res);
-  if (validation) return; // ritorna errori se ci sono
+  const isValid = validatePostFields(req, res);
+  if (!isValid) return; // ritorna errori se ci sono
 
   const { title, tipos, img } = req.body;
 
@@ -69,6 +69,7 @@ function store(req, res) {
   };
 
   posts.push(newPost);
+  res.status(201); //risposta di stato
   res.json(newPost);
 }
 
@@ -89,8 +90,8 @@ function update(req, res) {
     });
   }
 
-  const validation = validatePostFields(req, res);
-  if (validation) return; // ritorna errori se ci sono
+  const isValid = validatePostFields(req, res);
+  if (!isValid) return; // ritorna errori se ci sono
 
   const { title, tipos, img } = req.body;
 
@@ -165,8 +166,8 @@ const validatePostFields = (req, res) => {
       error: "Compilare i campi mancanti",
       message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
     });
-    return true; // Ritorna `true` se ci sono errori
+    return false; // Ritorna `true` se ci sono errori
   }
 
-  return false; // Ritorna `false` se non ci sono errori
+  return true; // Ritorna `false` se non ci sono errori
 };
