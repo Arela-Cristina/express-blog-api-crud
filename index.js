@@ -3,9 +3,12 @@ console.log("Hello");
 const express = require("express"); //import
 const { posts } = require("./data/data_base.js"); //import from ...
 const postsRouter = require("./routers/router.js"); //import from 
+const cors = require ("cors")
 const app = express(); // istanza = app
 const port = 1311; // #porta
 
+
+app.use(cors())
 app.use(express.static("public_assets")); //set middleware using ".use" prop
 app.use(express.json()) //set middleware per parsare il body in JSON del nuovo elemento della store
 
