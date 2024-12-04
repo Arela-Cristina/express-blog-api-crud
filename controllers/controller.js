@@ -58,14 +58,19 @@ function store(req, res) {
   const isValid = validatePostFields(req, res);
   if (!isValid) return; // ritorna errori se ci sono
 
-  const { title, tipos, img } = req.body;
+  const { name, thumb, tier, tag, quality } = req.body;
 
   //new object
   const newPost = {
-    title: title,
-    tipos: tipos,
-    img: img,
-    id: newId,
+    id:newId,
+    name: name,
+    description: 'This is a Description',
+    thumb: thumb,
+    tag:tag,
+    tier: tier,
+    quality:quality,
+    published:true
+
   };
 
   posts.push(newPost);
@@ -93,11 +98,13 @@ function update(req, res) {
   const isValid = validatePostFields(req, res);
   if (!isValid) return; // ritorna errori se ci sono
 
-  const { title, tipos, img } = req.body;
+  const { name, thumb, tier, tag, quality } = req.body;
 
-  post.title = title;
-  post.tipos = tipos;
-  post.img = img;
+  post.name = name;
+  post.thumb = thumb;
+  post.tier = tier;
+  post.tag = tag;
+  post.quality = quality
 
   res.json(post); // ... e ritorna il oggetto completo
 }
@@ -159,9 +166,9 @@ const findPostById = (id) => {
 
 //function 1
 const validatePostFields = (req, res) => {
-  const { title, tipos, img } = req.body;
+  const { name, thumb, tier, tag, quality } = req.body;
 
-  if (!title || !tipos || !img) {
+  if (!name || !thumb || !tier || !tag || !quality) {
     res.status(400).json({
       error: "Compilare i campi mancanti",
       message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
