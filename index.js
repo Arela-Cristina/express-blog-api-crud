@@ -8,7 +8,7 @@ const app = express(); // istanza = app
 const port = 1311; // #porta
 
 
-app.use(cors())
+app.use(cors());
 app.use(express.static("public_assets")); //set middleware using ".use" prop
 app.use(express.json()) //set middleware per parsare il body in JSON del nuovo elemento della store
 
