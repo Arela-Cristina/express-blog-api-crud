@@ -166,9 +166,9 @@ const findPostById = (id) => {
 
 //function 1
 const validatePostFields = (req, res) => {
-  const { name, thumb, tier, tag, quality } = req.body;
+  const { name, tier, tag, quality } = req.body;
 
-  if (!name || !thumb || !tier || !tag || !quality) {
+  if (!name || !tier || !tag || !quality) {
     res.status(400).json({
       error: "Compilare i campi mancanti",
       message: "I campi 'title', 'tipos' e 'img' sono obbligatori.",
