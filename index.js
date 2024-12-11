@@ -3,6 +3,7 @@ console.log("Hello");
 const express = require("express"); //import
 const { posts } = require("./data/data_base.js"); //import from ...
 const postsRouter = require("./routers/router.js"); //import from 
+const tagRouter = require('./routers/routerTag.js');
 const cors = require ("cors")
 const app = express(); // istanza = app
 const port = 1311; // #porta
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 
 //STEP 5
 app.use("/posts", postsRouter); //collegamento router
+app.use('/tags', tagRouter);
 
 //STEP 2
 app.listen(port, () => {
